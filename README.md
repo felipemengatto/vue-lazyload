@@ -1,3 +1,24 @@
+### This Version added new features, starting by original Fork.
+### Are they:
+
+#### Event Hide:
+``` 
+Vue.use(VueLazyload, {
+    shouldNotifyOnHideComponent: true,
+});
+```
+```
+<lazy-component class="lazy-image" 
+        @hide="hideImage"></lazy-component>
+```
+
+#### Debounce After finish Scroll:
+``` 
+Vue.use(VueLazyload, {
+    debounceLoadComponent: 500,
+});
+```
+
 # Vue-Lazyload
 
 [![Build Status](https://img.shields.io/circleci/project/hilongjw/vue-lazyload/master.svg?style=flat-square)](https://circleci.com/gh/hilongjw/vue-lazyload)
