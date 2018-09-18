@@ -371,11 +371,11 @@ export default function (Vue) {
       entries.forEach(entry => {
         if (entry.isIntersecting) {
           this.ListenerQueue.forEach(listener => {
-            if (listener.show && this.options.shouldNotifyOnHideComponent) return listener.hide()
+            if (listener.show && !listener.checkInView() && this.options.shouldNotifyOnHideComponent) return listener.hide()
             if (listener.el === entry.target) {
               if (listener.state.loaded) return this._observer.unobserve(listener.el)
               setTimeout(() => {
-                if (listener.checkInView()) {
+                if (listener.checkInView() && !listener.show) {
                   listener.load()
                 }
               }, this.options.debounceLoadComponent)
