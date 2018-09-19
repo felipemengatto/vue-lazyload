@@ -373,7 +373,6 @@ export default function (Vue) {
           this.ListenerQueue.forEach(listener => {
             if (listener.show && !listener.checkInView() && this.options.shouldNotifyOnHideComponent) return listener.hide()
             if (listener.el === entry.target) {
-              if (listener.state.loaded) return this._observer.unobserve(listener.el)
               this.rendererComponent(listener)
             }
           })
