@@ -374,15 +374,23 @@ export default function (Vue) {
             if (listener.show && !listener.checkInView() && this.options.shouldNotifyOnHideComponent) return listener.hide()
             if (listener.el === entry.target) {
               if (listener.state.loaded) return this._observer.unobserve(listener.el)
-              setTimeout(() => {
-                if (listener.checkInView() && !listener.show) {
-                  listener.load()
-                }
-              }, this.options.debounceLoadComponent)
+              this.rendererComponent(listener)
             }
           })
         }
       })
+    }
+
+    rendererComponent (listener) {
+      const timeoutLoad = setTimeout(() => {
+        if (listener.checkInView() && !listener.show) {
+          listener.load()
+        }
+        if (!listener.checkInView()) {
+          listener.hide()
+        }
+        clearTimeout(timeoutLoad)
+      }, this.options.debounceLoadComponent)
     }
 
     /**
